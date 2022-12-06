@@ -2,9 +2,16 @@ import urllib.request
 import json
 from django.shortcuts import render
 
+# from weatherProject.main import models
+# from weatherProject.main.models import WeatherModel
+import psycopg2
+
+from main.models import CurrentWeatherStatus
+
+from main.models import CurrentAirQualityStatus
+
 
 def index(request):
-
     if request.method == 'POST':
         city = request.POST['city']
 
@@ -13,18 +20,64 @@ def index(request):
         list_of_data = json.loads(source)
 
         data = {
+            "city_name": city,
             "country_code": str(list_of_data['sys']['country']),
-            "coordinate": str(list_of_data['coord']['lon']) + ', '
-            + str(list_of_data['coord']['lat']),
-
-            "temp": str(list_of_data['main']['temp']) + ' °C',
-            "pressure": str(list_of_data['main']['pressure']),
-            "humidity": str(list_of_data['main']['humidity']),
+            "coordinate_x": float(list_of_data['coord']['lon']),
+            "coordinate_y": float(list_of_data['coord']['lat']),
+            "temp": float(list_of_data['main']['temp']),
+            "pressure": float(list_of_data['main']['pressure']),
+            "humidity": float(list_of_data['main']['humidity']),
             'main': str(list_of_data['weather'][0]['main']),
             'description': str(list_of_data['weather'][0]['description']),
-            'icon': list_of_data['weather'][0]['icon'],
+            "icon": str(list_of_data['weather'][0]['icon']),
         }
+
+        current_weather = CurrentWeatherStatus(city_name=data['city_name'],
+                                               country_code=data['country_code'],
+                                               coordinate_x=data['coordinate_x'],
+                                               coordinate_y=data['coordinate_y'],
+                                               temp=data['temp'],
+                                               pressure=data['pressure'],
+                                               humidity=data['humidity'],
+                                               main=data['main'],
+                                               description=data['description'],
+                                               icon=data['icon'])
+        current_weather.save()
         print(data)
+
+        longitude_of_city = float(list_of_data['coord']['lon'])
+        print(longitude_of_city)
+        latitude_of_city = float(list_of_data['coord']['lat'])
+        air_quality = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/air_pollution?lat=' +
+                                             str(latitude_of_city) + '&lon=' + str(longitude_of_city) +
+                                             '&appid=104d5ffac43c1420b0797087139f411c').read()
+        print(air_quality)
+        list_of_pollution_data = json.loads(air_quality)
+
+        air_quality_dict = {
+            "city_name": city,
+            "co": float(list_of_pollution_data['list'][0]['components']['co']),
+            "no": float(list_of_pollution_data['list'][0]['components']['no']),
+            "no2": float(list_of_pollution_data['list'][0]['components']['no2']),
+            "o3": float(list_of_pollution_data['list'][0]['components']['o3']),
+            "so2": float(list_of_pollution_data['list'][0]['components']['so2']),
+            "pm2_5": float(list_of_pollution_data['list'][0]['components']['pm2_5']),
+            "pm10": float(list_of_pollution_data['list'][0]['components']['pm10']),
+            "nh3": float(list_of_pollution_data['list'][0]['components']['nh3']),
+        }
+        current_air_quality = CurrentAirQualityStatus(city_name=air_quality_dict['city_name'],
+                                                      co=air_quality_dict['co'],
+                                                      no=air_quality_dict['no'],
+                                                      no2=air_quality_dict['no2'],
+                                                      o3=air_quality_dict['o3'],
+                                                      so2=air_quality_dict['so2'],
+                                                      pm2_5=air_quality_dict['pm2_5'],
+                                                      pm10=air_quality_dict['pm10'],
+                                                      nh3=air_quality_dict['nh3'])
+        current_air_quality.save()
+
+        print(air_quality_dict)
+
     else:
         data = {}
 
