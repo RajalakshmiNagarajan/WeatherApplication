@@ -43,7 +43,7 @@
         <a href="/">Home</a>
         <a class="active" href="get_all_elements">Data</a>
         <a class="active" href="get_all_pollutants">Pollutants</a>
-        <a href="#contact">Contact</a>
+
     </div>
 
     <form role="search" id="form" method="get" action="get_by_id">
@@ -61,6 +61,7 @@
     <table class="styled-table">
         <tr>
             <th>ID</th>
+            <th>City</th>
             <th>Country</th>
             <th>Coordinates</th>
             <th>Temperature in Celsius</th>
@@ -72,6 +73,7 @@
         {% for current_weather in object_list %}
             <tr>
             <th>{{current_weather.id}}</th>
+            <th>{{current_weather.city_name}}</th>
             <th>{{current_weather.country_code}}</th>
             <th>{{current_weather.coordinate_x}},{{current_weather.coordinate_y}} </th>
             <th>{{current_weather.temp}}</th>

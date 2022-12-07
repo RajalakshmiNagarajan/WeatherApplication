@@ -44,6 +44,19 @@ def index(request):
         current_weather.save()
         responds_data = {"current_weather": current_weather}
 
+    else:
+        print("inside else")
+        responds_data = {}
+
+    return render(request, "main/index.html", responds_data)
+
+
+def pollution_index(request):
+    if request.method == 'POST':
+        city = request.POST['city']
+        source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=' +
+                                        city + '&units=metric&appid=104d5ffac43c1420b0797087139f411c').read()
+        list_of_data = json.loads(source)
         longitude_of_city = float(list_of_data['coord']['lon'])
         latitude_of_city = float(list_of_data['coord']['lat'])
         air_quality = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/air_pollution?lat=' +
@@ -83,7 +96,7 @@ def index(request):
         print("inside else")
         responds_data = {}
 
-    return render(request, "main/index.html", responds_data)
+    return render(request, "main/pollution_index.html", responds_data)
 
 
 def chart(request):
@@ -92,7 +105,7 @@ def chart(request):
     temp_arr = []
 
     index_1 = 0
-    for i in data_fetched:
+    for i in reversed(data_fetched):
         data_arr.append(i.city_name)
         temp_arr.append(i.temp)
         index_1 + 1
@@ -118,7 +131,7 @@ def pollution(request):
     temp_arr = []
 
     index_1 = 0
-    for i in data_fetched:
+    for i in reversed(data_fetched):
         data_arr.append(i.city_name)
         temp_arr.append(i.o3)
         index_1 + 1
