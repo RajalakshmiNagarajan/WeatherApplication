@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cerulean/bootstrap.min.css"
+        integrity="sha512-dQLT/B7byn2LjN/DN4zeBKpwGV6qbidV0XiMRWQOL7TGrV7FkZFldkGG+DGMU+CQnMTcRZlUI7GMWt1j6akNew=="
+        crossorigin="anonymous" />
+    <title>Weather App </title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        from {
+            margin: auto;
+        }
+
+        input {
+            margin-left: 43%;
+        }
+
+        .button,.svg {
+            width: 40px;
+            padding-top: 3px;
+            padding-bottom: 0px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a class="active" href="get_all_elements">Data</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <form role="search" id="form" method="get" action="get_by_id">
+        {% csrf_token %}
+        <input type="search" id="id" name="id" placeholder="Search ID.." aria-label="Search through site content"
+            required>
+        <button type="submit">
+            <svg viewBox="0 0 1024 1024">
+                <path class="path1"
+                    d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
+                </path>
+            </svg>
+        </button>
+    </form>
+    <table class="styled-table">
+        <tr>
+            <th>ID</th>
+            <th>Country</th>
+            <th>Coordinates</th>
+            <th>Temperature in Celsius</th>
+            <th>Pressure</th>
+            <th>Humidity</th>
+            <th>Forecast</th>
+            <th>Description</th>
+        </tr>
+        {% for current_weather in object_list %}
+            <tr>
+            <th>{{current_weather.id}}</th>
+            <th>{{current_weather.country_code}}</th>
+            <th>{{current_weather.coordinate_x}},{{current_weather.coordinate_y}} </th>
+            <th>{{current_weather.temp}}</th>
+            <th>{{current_weather.pressure}} </th>
+            <th>{{current_weather.humidity}}</th>
+            <th>{{current_weather.main}} <img src="http://openweathermap.org/img/w/{{current_weather.icon}}.png"
+                    alt="Image" style="width:70px"></th>
+            <th>{{current_weather.description}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <br>
+</body>
+
+</html>
