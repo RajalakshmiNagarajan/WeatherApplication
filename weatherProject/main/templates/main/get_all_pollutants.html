@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cerulean/bootstrap.min.css"
+        integrity="sha512-dQLT/B7byn2LjN/DN4zeBKpwGV6qbidV0XiMRWQOL7TGrV7FkZFldkGG+DGMU+CQnMTcRZlUI7GMWt1j6akNew=="
+        crossorigin="anonymous" />
+    <title>Weather App </title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        from {
+            margin: auto;
+        }
+
+        input {
+            margin-left: 43%;
+        }
+
+        .button,.svg {
+            width: 40px;
+            padding-top: 3px;
+            padding-bottom: 0px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a class="active" href="get_all_pollutants">Data</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <table class="styled-table" style="width: 1000px; height: 100px">
+        <tr>
+            <th>City Name</th>
+            <th>Air Quality Index</th>
+            <th>Carbon monoxide (CO)</th>
+            <th>Nitrogen monoxide (NO)</th>
+            <th>Nitrogen dioxide (NO2)</th>
+            <th>Ozone (O3)</th>
+            <th>Sulphur dioxide (SO2)</th>
+            <th>Ammonia (NH3)</th>
+            <th>particulates (PM2.5)</th>
+            <th>particulates (PM10)</th>
+        </tr>
+        {% for current_air_quality in object_list %}
+            <tr>
+            <th>{{current_air_quality.city_name}}</th>
+            <th>{{current_air_quality.aqi}}</th>
+            <th>{{current_air_quality.co}}</th>
+            <th>{{current_air_quality.no}} </th>
+            <th>{{current_air_quality.no2}}</th>
+            <th>{{current_air_quality.o3}} </th>
+            <th>{{current_air_quality.so2}}</th>
+            <th>{{current_air_quality.nh3}}</th>
+            <th>{{current_air_quality.pm2_5}} </th>
+            <th>{{current_air_quality.pm10}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <br>
+</body>
+
+</html>

@@ -199,23 +199,24 @@
   </div>
   <br />
 
-  {% if current_weather %}
+  {% if current_air_quality %}
   <div>
     <p></p>
   </div>
   <span id = "weatherData">
-    <b>{{current_weather.city_name}}</b>
+   <b>{{current_air_quality.city_name}}</b>
   </span>
   <table class="styled-table">
     <tr>
-      <th>Country : {{current_weather.country_code}}</th>
-      <th>Coordinates :{{current_weather.coordinate_x}},{{current_weather.coordinate_y}} </th>
-      <th>Temperature in Celsius : {{current_weather.temp}}</th>
-      <th>Pressure : {{current_weather.pressure}} </th>
-      <th>Humidity : {{current_weather.humidity}}</th>
-      <th>Forecast : {{current_weather.main}} <img src="http://openweathermap.org/img/w/{{current_weather.icon}}.png"
-          alt="Image" style="width:70px"></th>
-      <th>Description : {{current_weather.description}}</th>
+      <th>Air Quality Index  {{current_air_quality.aqi}}</th>
+      <th>Carbon monoxide  {{current_air_quality.co}} </th>
+      <th>Nitrogen monoxide  {{current_air_quality.no}}</th>
+      <th>Nitrogen dioxide  {{current_air_quality.no2}} </th>
+      <th>Ozone  {{current_air_quality.o3}}</th>
+      <th>Sulphur dioxide  {{current_air_quality.so2}}</th>
+      <th>Ammonia  {{current_air_quality.nh3}}</th>
+      <th>Particulates  {{current_air_quality.pm2_5}}</th>
+      <th>Particulates  {{current_air_quality.pm10}}</th>
     </tr>
     </div>
     {% endif %}
