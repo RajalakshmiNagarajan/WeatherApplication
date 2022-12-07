@@ -10,12 +10,18 @@
         var djangoData = {{ chart_array|safe }};
         var data = google.visualization.arrayToDataTable(djangoData);
 
-        var options = {
-          title: 'temperature vs city',
-          curveType: 'function',
-          legend: { position: 'bottom'}
-        };
-
+       var options = {
+        title: 'Comparison of temperature in various cities',
+        chartArea: {width: '50%'},
+        isStacked: true,
+        hAxis: {
+          title: 'Cities',
+          minValue: 0,
+        },
+        vAxis: {
+          title: 'Temperature'
+        }
+      };
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
         chart.draw(data, options);
@@ -24,7 +30,7 @@
   </head>
   <body>
   <span id="weatherAppId1">
-    Country : {{country_code}}
+
   </span>
     <div id="curve_chart" style="width: 900px; height: 500px"></div>
   </body>

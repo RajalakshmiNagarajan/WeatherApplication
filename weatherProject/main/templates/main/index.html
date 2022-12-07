@@ -173,14 +173,14 @@
 
 <body>
 
-<div id="curve_chart" style="width: 900px; height: 500px"></div>
+<div id="curve_chart" style="width: 900px; height: 0px"></div>
   <div class="topnav">
     <a class="active" href="#home">Home</a>
     <a href="get_all_elements"> Data </a>
     <a href="get_all_pollutants"> Pollutants </a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="row" id="searchbox">
+  <div class="row" id="searchbox" style="width: 900px; height: 0px">
     <form role="search" id="form" method="post">
       {% csrf_token %}
       <input type="search" id="query" name="city" placeholder="Your City ...." aria-label="Search through site content"

@@ -11,12 +11,19 @@
         var data = google.visualization.arrayToDataTable(djangoData);
 
         var options = {
-          title: 'temperature vs city',
-          curveType: 'function',
-          legend: { position: 'bottom'}
-        };
+        title: 'Amount of Ozone pollutants in various cities',
+        chartArea: {width: '50%'},
+        isStacked: true,
+        hAxis: {
+          title: 'Cities',
+          minValue: 0,
+        },
+        vAxis: {
+          title: 'Ozone Pollutant'
+        }
+      };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
 
         chart.draw(data, options);
       }
@@ -24,7 +31,7 @@
   </head>
   <body>
   <span id="weatherAppId1">
-    Country : {{country_code}}
+
   </span>
     <div id="curve_chart" style="width: 900px; height: 500px"></div>
   </body>
