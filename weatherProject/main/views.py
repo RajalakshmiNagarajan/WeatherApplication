@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 # from weatherProject.main import models
 # from weatherProject.main.models import WeatherModel
-import psycopg2
+# import psycopg2
 
 from main.models import CurrentWeatherStatus
 
@@ -101,6 +101,7 @@ def pollution_index(request):
 
 def chart(request):
     data_fetched = CurrentWeatherStatus.objects.all()
+    print("data fetched", data_fetched.values())
     data_arr = []
     temp_arr = []
 
