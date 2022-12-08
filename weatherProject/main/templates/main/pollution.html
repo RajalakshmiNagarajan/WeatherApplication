@@ -89,7 +89,7 @@
         var data = google.visualization.arrayToDataTable(djangoData);
 
         var options = {
-        title: 'Amount of Ozone pollutants in various cities',
+        title: 'Amount of Ozone(o3) pollutant concentration in various cities',
         chartArea: {width: '50%'},
         isStacked: true,
         hAxis: {
@@ -97,7 +97,7 @@
           minValue: 0,
         },
         vAxis: {
-          title: 'Ozone Pollutant'
+          title: 'Ozone Pollutant in μg/m3'
         }
       };
 
@@ -119,7 +119,7 @@
 
   </div>
 
-  <div id="curve_chart" style="width: 900px; height: 0px"></div>
+  <div id="curve_chart" style="width: 900px; height: 300px"></div>
   <span id="weatherAppId1">
 
   </span>

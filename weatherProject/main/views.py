@@ -100,13 +100,13 @@ def pollution_index(request):
 
 
 def chart(request):
-    data_fetched = CurrentWeatherStatus.objects.all()
+    data_fetched = CurrentWeatherStatus.objects.order_by('-id')
     print("data fetched", data_fetched.values())
     data_arr = []
     temp_arr = []
 
     index_1 = 0
-    for i in reversed(data_fetched):
+    for i in data_fetched:
         data_arr.append(i.city_name)
         temp_arr.append(i.temp)
         index_1 + 1
@@ -127,12 +127,12 @@ def chart(request):
 
 
 def pollution(request):
-    data_fetched = CurrentAirQualityStatus.objects.all()
+    data_fetched = CurrentAirQualityStatus.objects.order_by('-id')
     data_arr = []
     temp_arr = []
 
     index_1 = 0
-    for i in reversed(data_fetched):
+    for i in data_fetched:
         data_arr.append(i.city_name)
         temp_arr.append(i.o3)
         index_1 + 1
